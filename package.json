@@ -1,0 +1,28 @@
+{
+  "name": "cli-demo",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "bin": "bin/create.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jackson-wjx/cli-demo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jackson-wjx/cli-demo/issues"
+  },
+  "homepage": "https://github.com/Jackson-wjx/cli-demo#readme",
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^9.4.1",
+    "figlet": "^1.5.0",
+    "inquirer": "^8.2.0",
+    "ora": "^5.4.1"
+  }
+}
