@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Jackson-wjx/cli-demo#readme",
   "dependencies": {
+    "@fund/user-info": "^1.4.1",
     "chalk": "^4.1.2",
     "commander": "^9.4.1",
     "download-git-repo": "^3.0.2",

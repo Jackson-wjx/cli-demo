@@ -1,0 +1,102 @@
+<!DOCTYPE html>  
+<html>  
+<head>  
+  <style>  
+    /* 全局样式 */  
+    body {  
+      font-family: Arial, sans-serif;  
+    }  
+  </style>  
+</head>  
+<body>  
+  <!-- 使用自定义元素 -->  
+  <user-card name="John Doe" email="john.doe@example.com" avatar="https://via.placeholder.com/150"></user-card>&nbsp;  
+&nbsp;  
+  <script>  
+    // 创建一个继承自 HTMLElement 的自定义元素类  
+    class UserCard extends HTMLElement {  
+      constructor() {  
+        super();&nbsp;  
+&nbsp;  
+        // 创建 Shadow DOM  
+        const shadow = this.attachShadow({ mode: 'open' });&nbsp;  
+&nbsp;  
+        // 创建组件的内部结构  
+        const wrapper = document.createElement('div');  
+        wrapper.setAttribute('class', 'user-card');&nbsp;  
+&nbsp;  
+        const avatar = document.createElement('img');  
+        avatar.setAttribute('src', this.getAttribute('avatar'));  
+        avatar.setAttribute('alt', 'User Avatar');  
+        wrapper.appendChild(avatar);&nbsp;  
+&nbsp;  
+        const name = document.createElement('h2');  
+        name.textContent = this.getAttribute('name');  
+        wrapper.appendChild(name);&nbsp;  
+&nbsp;  
+        const email = document.createElement('p');  
+        email.textContent = this.getAttribute('email');  
+        wrapper.appendChild(email);&nbsp;  
+&nbsp;  
+        const button = document.createElement('button');  
+        button.textContent = 'Click me';  
+        wrapper.appendChild(button);&nbsp;  
+&nbsp;  
+        // 创建组件的内部样式  
+        const style = document.createElement('style');  
+        style.textContent = `  
+          .user-card {  
+            display: inline-block;  
+            background-color: #f0f0f0;  
+            padding: 1em;  
+            border-radius: 1em;  
+          }  
+          img {  
+            width: 150px;  
+            height: 150px;  
+            border-radius: 50%;  
+          }  
+          h2, p {  
+            margin: 0;  
+          }  
+          p {  
+            color: #888;  
+          }  
+          button {  
+            background-color: #1a73e8;  
+            border: none;  
+            border-radius: 0.5em;  
+            color: white;  
+            padding: 0.5em 1em;  
+            cursor: pointer;  
+          }  
+          button:hover {  
+            background-color: #0f63d2;  
+          }  
+        `;&nbsp;  
+&nbsp;  
+        // 将结构和样式添加到 Shadow DOM  
+        shadow.appendChild(style);  
+        shadow.appendChild(wrapper);&nbsp;  
+&nbsp;  
+        // 添加按钮点击事件监听器  
+        button.addEventListener('click', () => {  
+          this.dispatchEvent(new CustomEvent('userCardClick', { detail: { name: this.getAttribute('name') } }));  
+        });  
+      }  
+    }&nbsp;  
+&nbsp;  
+    // 注册自定义元素  
+    customElements.define('user-card', UserCard);&nbsp;  
+&nbsp;  
+    // 监听自定义元素的自定义事件  
+    const userCard = document.querySelector('user-card');  
+    userCard.addEventListener('userCardClick', (event) => {  
+      alert(`Clicked: ${event.detail.name}`);  
+    });  
+  </script>  
+</body>  
+</html>  
+```&nbsp;  
+&nbsp;  
+这个示例展示了如何使用原生 Web Components 技术创建一个具有多个功能的自定义元素。这个组件包括一个头像、用户名、电子邮件地址和按钮。它使用 Shadow DOM 来封装内部结构和样式，以确保与页面其他部分的隔离。当用户点击按钮时，它会触发一个自定义事件，并在事件监听器中显示一个弹窗。

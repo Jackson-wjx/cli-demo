@@ -1,0 +1,28 @@
+XHR（XMLHttpRequest）和Fetch API都是用于发起网络请求的前端技术。尽管它们具有相似的功能，但它们在使用方式和设计理念上存在一些差异。以下是XHR和Fetch API的异同点： 
+
+相同点： 
+都可以发起GET、POST等类型的HTTP请求。
+都可以处理请求和响应的数据。
+都可以在请求中设置自定义头部。 
+
+不同点： 
+API设计： 
+XMLHttpRequest：XHR是一个较为传统且底层的API，它基于回调和事件，使用起来较为繁琐。同时，XHR的API设计不够直观，需要手动配置一些参数和处理错误。
+Fetch API：Fetch API是一个基于Promise的现代API，使用起来更加简洁和优雅。Fetch API遵循函数式编程范式，易于组合和处理异步操作。 
+默认行为： 
+XMLHttpRequest：XHR默认情况下会发送同步请求，除非你显式地将async参数设置为true。同步请求会阻塞主线程，导致页面卡顿。
+Fetch API：Fetch API默认发送异步请求，不会阻塞主线程。 
+错误处理： 
+XMLHttpRequest：XHR在处理网络错误时，需要侦听error事件并手动处理。同时，XHR将HTTP错误状态（如404、500等）视为成功的请求，需要额外处理这些错误状态。
+Fetch API：Fetch API会将网络错误直接拒绝，使得错误处理变得更加简单。但是，与XHR一样，Fetch API也将HTTP错误状态视为成功的请求，需要额外处理这些错误状态。 
+请求进度： 
+XMLHttpRequest：XHR支持progress事件，可以方便地处理上传和下载进度。
+Fetch API：Fetch API不直接支持进度事件。要处理下载进度，需要使用response.body.getReader()来读取数据流。处理上传进度则需要额外的库或使用第三方库。 
+请求中断： 
+XMLHttpRequest：XHR可以使用abort()方法轻松中断请求。
+Fetch API：Fetch API需要使用AbortController和AbortSignal来中断请求，这是一个额外的API，使用起来相对复杂。 
+浏览器支持： 
+XMLHttpRequest：XHR在几乎所有现代浏览器和较旧的浏览器（如IE6+）中都有良好的支持。
+Fetch API：Fetch API在现代浏览器中有很好的支持，但在较旧的浏览器（如IE）中不受支持。要在旧浏览器中使用Fetch API，需要使用polyfill。 
+
+总结：虽然XHR和Fetch API都可以用于发起网络请求，但Fetch API由于其基于Promise的设计和简洁的API，通常更受开发者喜爱。然而，在一些特殊情况下（如处理进度事件或需要兼容旧浏览器时），XHR

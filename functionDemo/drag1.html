@@ -1,0 +1,113 @@
+<!DOCTYPE html>  
+<html>  
+  <head>  
+    <title>元素拖拽示例</title>  
+    <style>  
+      #drag {  
+        width: 100px;  
+        height: 100px;  
+        background-color: #f00;  
+        position: absolute;  
+        left: 0;  
+        top: 0;  
+      }  
+  
+      #drop1,  
+      #drop2 {  
+        width: 200px;  
+        height: 200px;  
+        background-color: #0f0;  
+        position: absolute;  
+        left: 0;  
+        top: 120px;  
+      }  
+    </style>  
+  </head>  
+  <body>  
+    <div id="drag"></div>  
+    <div id="drop1"></div>  
+    <div id="drop2"></div>  
+    <script>  
+      const drag = document.getElementById('drag');  
+      let isDragging = false;  
+      let currentX;  
+      let currentY;  
+      let initialX;  
+      let initialY;  
+      let xOffset = 0;  
+      let yOffset = 0;  
+  
+      drag.addEventListener('mousedown', dragStart);  
+      drag.addEventListener('mouseup', dragEnd);  
+      drag.addEventListener('mousemove', dragMove);  
+  
+      function dragStart(event) {  
+        initialX = event.clientX - xOffset;  
+        initialY = event.clientY - yOffset;  
+  
+        if (event.target === drag) {  
+          isDragging = true;  
+        }  
+      }  
+  
+      function dragEnd(event) {  
+        initialX = currentX;  
+        initialY = currentY;  
+  
+        isDragging = false;  
+      }  
+  
+      function dragMove(event) {  
+        if (isDragging) {  
+          event.preventDefault();  
+  
+          currentX = event.clientX - initialX;  
+          currentY = event.clientY - initialY;  
+  
+          xOffset = currentX;  
+          yOffset = currentY;  
+  
+          setTranslate(currentX, currentY, drag);  
+  
+          const drop1 = document.getElementById('drop1');  
+          const drop2 = document.getElementById('drop2');  
+  
+          const rect1 = drop1.getBoundingClientRect();  
+          const rect2 = drop2.getBoundingClientRect();  
+  
+          if (  
+            currentX >= rect1.left &&  
+            currentX <= rect1.right &&  
+            currentY >= rect1.top &&  
+            currentY <= rect1.bottom  
+          ) {  
+            drop1.style.backgroundColor = '#00f';  
+            drop2.style.backgroundColor = '#0f0';  
+          } else if (  
+            currentX >= rect2.left &&  
+            currentX <= rect2.right &&  
+            currentY >= rect2.top &&  
+            currentY <= rect2.bottom  
+          ) {  
+            drop1.style.backgroundColor = '#0f0';  
+            drop2.style.backgroundColor = '#00f';  
+          } else {  
+            drop1.style.backgroundColor = '#0f0';  
+            drop2.style.backgroundColor = '#0f0';  
+          }  
+        }  
+      }  
+  
+      function setTranslate(xPos, yPos, el) {  
+        el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;  
+      }  
+    </script>  
+  </body>  
+</html>  
+<!-- ```  
+  
+这个增强版的元素拖拽实现在原有的基础上增加了以下功能：  
+  
+- 添加了两个目标区域 `drop1` 和 `drop2`，并在拖拽过程中检测当前鼠标位置是否在目标区域内。  
+- 如果当前鼠标位置在目标区域内，则将该目标区域的背景色设置为蓝色，将另一个目标区域的背景色设置为绿色。  
+- 如果 -->

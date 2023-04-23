@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>元素拖拽示例</title>
+  <style>
+    #drag {
+      width: 100px;
+      height: 100px;
+      background-color: #f00;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="drag"></div>
+  <script>
+    const drag = document.getElementById('drag');
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;  
+
+    drag.addEventListener('mousedown', dragStart);
+    drag.addEventListener('mouseup', dragEnd);
+    drag.addEventListener('mousemove', dragMove);  
+
+    function dragStart(event) {
+      initialX = event.clientX - xOffset;
+      initialY = event.clientY - yOffset;  
+
+      if (event.target === drag) {
+        isDragging = true;
+      }
+    }  
+
+    function dragEnd(event) {
+      initialX = currentX;
+      initialY = currentY;  
+
+      isDragging = false;
+    }  
+
+    function dragMove(event) {
+      if (isDragging) {
+        event.preventDefault();  
+
+        currentX = event.clientX - initialX;
+        currentY = event.clientY - initialY;  
+
+        xOffset = currentX;
+        yOffset = currentY;  
+
+        setTranslate(currentX, currentY, drag);
+      }
+    }  
+
+    function setTranslate(xPos, yPos, el) {
+      el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    }  
+  </script>
+</body>
+
+</html>
+<!-- ```&nbsp;
+&nbsp;
+这个元素拖拽实现包含以下功能：&nbsp;
+&nbsp;
+- 鼠标按下时，记录当前鼠标位置，并将 `isDragging` 置为 true。
+- 鼠标移动时，如果 `isDragging` 为 true，则计算出当前鼠标位置和初始鼠标位置之间的距离，并将元素的 `transform` 属性设置为该距离。
+- 鼠标抬起时，将当前鼠标位置设置为初始鼠标位置，并将 `isDragging` 置为 false。&nbsp;
+&nbsp;
+你可以在 HTML 中添加一个元素，然后将其 ID 设置为 `drag`，就可以使用这个元素拖拽实现了。 -->
